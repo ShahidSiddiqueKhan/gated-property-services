@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,4 +7,74 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* GATED Property Services brand palette */
+    --color-brand-50: #fef2f2;
+    --color-brand-100: #fde5e5;
+    --color-brand-200: #fbcccc;
+    --color-brand-300: #f7a3a3;
+    --color-brand-400: #f16f6f;
+    --color-brand-500: #e63946;
+    --color-brand-600: #d81f2a;
+    --color-brand-700: #b0151f;
+    --color-brand-800: #8c141d;
+    --color-brand-900: #74151d;
+    --color-brand-950: #400a0d;
+
+    --color-ink-50: #f6f6f7;
+    --color-ink-100: #e2e3e5;
+    --color-ink-200: #c5c7cb;
+    --color-ink-300: #a1a4ab;
+    --color-ink-400: #7c7f88;
+    --color-ink-500: #61646d;
+    --color-ink-600: #4c4e56;
+    --color-ink-700: #3d3e44;
+    --color-ink-800: #26272b;
+    --color-ink-900: #151517;
+    --color-ink-950: #0a0a0b;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer base {
+    body {
+        @apply antialiased text-ink-800 bg-white;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+    }
+
+    .btn-dark {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ink-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-ink-800 focus:outline-none focus:ring-2 focus:ring-ink-700 focus:ring-offset-2;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-ink-900 px-6 py-3 text-sm font-semibold text-ink-900 transition hover:bg-ink-900 hover:text-white;
+    }
+
+    .btn-outline-white {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-ink-900;
+    }
+
+    .section-eyebrow {
+        @apply text-sm font-bold uppercase tracking-wider text-brand-600;
+    }
+
+    .card {
+        @apply rounded-2xl border border-ink-100 bg-white shadow-sm;
+    }
+
+    .badge {
+        @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold;
+    }
 }
