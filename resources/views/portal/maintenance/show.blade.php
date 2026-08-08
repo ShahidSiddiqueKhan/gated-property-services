@@ -83,7 +83,7 @@
         <aside class="card p-6 h-fit">
             <h3 class="font-heading font-bold text-ink-900 text-sm">Need urgent help?</h3>
             <p class="mt-2 text-sm text-ink-500">Contact our support team directly for emergency issues.</p>
-            <a href="tel:+923001234567" class="btn-primary w-full mt-4 justify-center text-sm">Call Support</a>
+            <a href="tel:+923009558737" class="btn-primary w-full mt-4 justify-center text-sm">Call Support</a>
             <a href="{{ route('portal.messages.index') }}" class="btn-outline w-full mt-3 justify-center text-sm">Send a Message</a>
         </aside>
     </div>

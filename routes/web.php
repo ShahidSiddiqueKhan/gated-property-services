@@ -6,13 +6,22 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\ContactSubmissionController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DocumentController as AdminDocumentController;
+use App\Http\Controllers\Admin\FeeTierController;
 use App\Http\Controllers\Admin\LeaseController;
 use App\Http\Controllers\Admin\MaintenanceController as AdminMaintenanceController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\PackageController as AdminPackageController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\Admin\PaymentMethodController as AdminPaymentMethodController;
 use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
+use App\Http\Controllers\Admin\PropertyPackageController;
+use App\Http\Controllers\Admin\RenovationMediaController;
+use App\Http\Controllers\Admin\RenovationMilestoneController;
+use App\Http\Controllers\Admin\RenovationProjectController;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
+use App\Http\Controllers\Admin\ServiceCatalogController;
+use App\Http\Controllers\Admin\ServiceChargeController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\TaskController as AdminTaskController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -24,6 +33,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Portal\DashboardController;
 use App\Http\Controllers\Portal\DocumentController;
+use App\Http\Controllers\Portal\FinanceController;
 use App\Http\Controllers\Portal\MaintenanceController;
 use App\Http\Controllers\Portal\MessageController;
 use App\Http\Controllers\Portal\PaymentController;
@@ -34,6 +44,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyRegistrationController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 
 // ---------------------------------------------------------------------------
@@ -41,6 +52,7 @@ use Illuminate\Support\Facades\Route;
 // ---------------------------------------------------------------------------
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/offers', [PageController::class, 'promotions'])->name('promotions.index');
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
@@ -61,6 +73,17 @@ Route::get('/contact', [ContactController::class, 'show'])->name('contact.show')
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+// ---------------------------------------------------------------------------
+// Payment gateway callbacks — hit by JazzCash/Stripe servers or a redirected
+// browser rather than an authenticated session, so these sit outside the
+// portal's auth middleware and are exempted from CSRF verification below
+// (see bootstrap/app.php). Each handler independently verifies authenticity
+// via a signed hash rather than trusting the request.
+// ---------------------------------------------------------------------------
+Route::post('/payments/jazzcash/return', [\App\Http\Controllers\Portal\JazzCashController::class, 'return'])->name('payments.jazzcash.return');
+Route::post('/payments/safepay/return', [\App\Http\Controllers\Portal\SafepayController::class, 'return'])->name('payments.safepay.return');
+Route::post('/webhooks/stripe', [StripeWebhookController::class, 'handle'])->name('webhooks.stripe');
 
 // ---------------------------------------------------------------------------
 // Authentication
@@ -92,9 +115,19 @@ Route::middleware(['auth', 'client'])->prefix('portal')->name('portal.')->group(
     Route::get('/properties', [\App\Http\Controllers\Portal\PropertyController::class, 'index'])->name('properties.index');
     Route::get('/properties/{property}', [\App\Http\Controllers\Portal\PropertyController::class, 'show'])->name('properties.show');
 
+    Route::get('/finances', [FinanceController::class, 'index'])->name('finances.index');
+
     Route::get('/rent-payments', [PaymentController::class, 'index'])->name('payments.index');
     Route::get('/rent-payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
     Route::post('/rent-payments/{payment}/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
+
+    // Card payments via Stripe (overseas owners) and mobile wallet via JazzCash (local owners).
+    Route::post('/rent-payments/{payment}/pay/stripe', [\App\Http\Controllers\Portal\StripePaymentController::class, 'checkout'])->name('payments.stripe.checkout');
+    Route::get('/rent-payments/{payment}/pay/stripe/return', [\App\Http\Controllers\Portal\StripePaymentController::class, 'return'])->name('payments.stripe.return');
+    Route::get('/rent-payments/{payment}/pay/jazzcash', [\App\Http\Controllers\Portal\JazzCashController::class, 'checkout'])->name('payments.jazzcash.checkout');
+
+    // Safepay — admin-added third gateway (cards, wallets & bank rails).
+    Route::post('/rent-payments/{payment}/pay/safepay', [\App\Http\Controllers\Portal\SafepayController::class, 'checkout'])->name('payments.safepay.checkout');
 
     Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
     Route::get('/maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
@@ -137,6 +170,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/properties/{property}/toggle-featured', [AdminPropertyController::class, 'toggleFeatured'])->name('properties.toggle-featured');
     Route::delete('/properties/{property}', [AdminPropertyController::class, 'destroy'])->name('properties.destroy');
 
+    Route::post('/properties/{property}/service-charge', [ServiceChargeController::class, 'store'])->name('properties.service-charge');
+    Route::post('/properties/{property}/package', [PropertyPackageController::class, 'store'])->name('properties.package.store');
+    Route::put('/properties/{property}/package/{propertyPackage}', [PropertyPackageController::class, 'update'])->name('properties.package.update');
+    Route::post('/properties/{property}/package/{propertyPackage}/cancel', [PropertyPackageController::class, 'cancel'])->name('properties.package.cancel');
+
     Route::get('/leases', [LeaseController::class, 'index'])->name('leases.index');
     Route::get('/leases/create', [LeaseController::class, 'create'])->name('leases.create');
     Route::post('/leases', [LeaseController::class, 'store'])->name('leases.store');
@@ -155,6 +193,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/maintenance', [AdminMaintenanceController::class, 'index'])->name('maintenance.index');
     Route::get('/maintenance/{maintenanceRequest}', [AdminMaintenanceController::class, 'show'])->name('maintenance.show');
     Route::put('/maintenance/{maintenanceRequest}', [AdminMaintenanceController::class, 'update'])->name('maintenance.update');
+    Route::post('/maintenance/{maintenanceRequest}/bill', [AdminMaintenanceController::class, 'bill'])->name('maintenance.bill');
 
     Route::get('/documents', [AdminDocumentController::class, 'index'])->name('documents.index');
     Route::get('/documents/create', [AdminDocumentController::class, 'create'])->name('documents.create');
@@ -176,6 +215,21 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('blog', AdminBlogController::class)->except(['show'])->parameters(['blog' => 'post']);
     Route::resource('services', AdminServiceController::class)->except(['show']);
     Route::resource('promotions', PromotionController::class)->except(['show']);
+    Route::resource('packages', AdminPackageController::class)->except(['show']);
+    Route::resource('payment-methods', AdminPaymentMethodController::class)->except(['show']);
+    Route::resource('fee-tiers', FeeTierController::class)->except(['show']);
+    Route::resource('service-catalog', ServiceCatalogController::class)->except(['show']);
+
+    Route::resource('renovations', RenovationProjectController::class)->except(['show'])->parameters(['renovations' => 'renovation']);
+    Route::get('/renovations/{renovation}', [RenovationProjectController::class, 'show'])->name('renovations.show');
+    Route::post('/renovations/{renovation}/approve', [RenovationProjectController::class, 'approve'])->name('renovations.approve');
+    Route::post('/renovations/{renovation}/reject', [RenovationProjectController::class, 'reject'])->name('renovations.reject');
+    Route::put('/renovations/{renovation}/status', [RenovationProjectController::class, 'updateStatus'])->name('renovations.status');
+    Route::post('/renovations/{renovation}/milestones', [RenovationMilestoneController::class, 'store'])->name('renovations.milestones.store');
+    Route::put('/renovations/{renovation}/milestones/{milestone}', [RenovationMilestoneController::class, 'update'])->name('renovations.milestones.update');
+    Route::delete('/renovations/{renovation}/milestones/{milestone}', [RenovationMilestoneController::class, 'destroy'])->name('renovations.milestones.destroy');
+    Route::post('/renovations/{renovation}/media', [RenovationMediaController::class, 'store'])->name('renovations.media.store');
+    Route::delete('/renovations/{renovation}/media/{media}', [RenovationMediaController::class, 'destroy'])->name('renovations.media.destroy');
 
     Route::get('/leads', [ContactSubmissionController::class, 'index'])->name('leads.index');
     Route::post('/leads/{submission}/toggle-handled', [ContactSubmissionController::class, 'toggleHandled'])->name('leads.toggle-handled');

@@ -17,16 +17,16 @@
     </section>
 
     <section class="py-16 bg-white">
-        <div class="max-w-3xl mx-auto px-6">
+        <div class="max-w-3xl mx-auto px-6" data-reveal>
             @if ($post->image)
-                <img src="{{ \App\Support\Media::url($post->image) }}" class="rounded-2xl w-full aspect-video object-cover mb-10" alt="{{ $post->title }}">
+                <img src="{{ \App\Support\Media::url($post->image) }}" class="rounded-2xl w-full aspect-video object-cover mb-10 shadow-lg" alt="{{ $post->title }}">
             @endif
             <div class="prose max-w-none prose-headings:font-heading text-ink-700 leading-relaxed">
                 {!! $post->body !!}
             </div>
 
             @if ($post->resource_file)
-                <a href="{{ \App\Support\Media::url($post->resource_file) }}" target="_blank" class="mt-8 card p-5 flex items-center gap-3 hover:shadow-lg transition max-w-md">
+                <a href="{{ \App\Support\Media::url($post->resource_file) }}" target="_blank" class="mt-8 card p-5 flex items-center gap-3 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 max-w-md">
                     <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0"><x-icon name="document-arrow-down" class="w-5 h-5" /></span>
                     <div>
                         <div class="font-semibold text-sm text-ink-900">Download Resource</div>
@@ -41,7 +41,9 @@
             <h3 class="font-heading font-bold text-ink-900 mb-6">More Resources</h3>
             <div class="grid sm:grid-cols-3 gap-6">
                 @foreach ($related as $r)
-                    @include('blog.partials.card', ['post' => $r])
+                    <div data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}">
+                        @include('blog.partials.card', ['post' => $r])
+                    </div>
                 @endforeach
             </div>
         </div>

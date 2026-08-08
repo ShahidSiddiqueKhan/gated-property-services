@@ -16,6 +16,16 @@ return Application::configure(basePath: dirname(__DIR__))
             'client' => \App\Http\Middleware\EnsureClientRole::class,
             'admin' => \App\Http\Middleware\EnsureAdminRole::class,
         ]);
+
+        // Payment gateway callbacks are POSTed by JazzCash/Stripe's own
+        // servers (or a redirected browser without our CSRF cookie), so they
+        // can't carry a Laravel CSRF token. Each is independently verified
+        // via a signed hash instead (see StripeGateway/JazzCashGateway).
+        $middleware->validateCsrfTokens(except: [
+            'payments/jazzcash/return',
+            'payments/safepay/return',
+            'webhooks/stripe',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

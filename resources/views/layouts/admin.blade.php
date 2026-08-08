@@ -24,6 +24,13 @@
             ['route' => 'admin.tasks.index', 'icon' => 'check-circle', 'label' => 'Tasks'],
             ['route' => 'admin.leads.index', 'icon' => 'megaphone', 'label' => 'Leads', 'badge' => $adminNewLeads ?? 0],
         ];
+        $financeNav = [
+            ['route' => 'admin.packages.index', 'icon' => 'banknotes', 'label' => 'Packages'],
+            ['route' => 'admin.payment-methods.index', 'icon' => 'globe-alt', 'label' => 'Payment Methods'],
+            ['route' => 'admin.fee-tiers.index', 'icon' => 'chart-bar', 'label' => 'Fee Tiers'],
+            ['route' => 'admin.service-catalog.index', 'icon' => 'megaphone', 'label' => 'Service Catalog'],
+            ['route' => 'admin.renovations.index', 'icon' => 'wrench-screwdriver', 'label' => 'Renovation Projects'],
+        ];
         $contentNav = [
             ['route' => 'admin.testimonials.index', 'icon' => 'star', 'label' => 'Testimonials'],
             ['route' => 'admin.blog.index', 'icon' => 'document-text', 'label' => 'Blog & Resources'],
@@ -65,6 +72,16 @@
                             @if (($item['badge'] ?? 0) > 0)
                                 <span class="bg-white text-brand-600 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">{{ $item['badge'] }}</span>
                             @endif
+                        </a>
+                    @endforeach
+                </div>
+
+                <div class="pt-4 border-t border-white/10 space-y-1">
+                    <div class="px-4 text-[10px] uppercase tracking-widest text-ink-500 mb-1">Finance &amp; Packages</div>
+                    @foreach ($financeNav as $item)
+                        <a href="{{ route($item['route']) }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition {{ request()->routeIs(str_replace('.index','',$item['route']).'*') ? 'bg-brand-600 text-white' : 'hover:bg-white/5 hover:text-white' }}">
+                            <x-icon :name="$item['icon']" class="w-5 h-5 shrink-0" />
+                            {{ $item['label'] }}
                         </a>
                     @endforeach
                 </div>

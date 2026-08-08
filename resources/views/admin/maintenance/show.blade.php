@@ -36,6 +36,42 @@
             </div>
 
             <div class="card p-6">
+                <h3 class="font-heading font-bold text-ink-900 mb-4">Contractor Invoice &amp; Billing</h3>
+
+                @if ($maintenanceRequest->isBilled())
+                    <dl class="space-y-2 text-sm">
+                        <div class="flex justify-between"><dt class="text-ink-500">Contractor cost</dt><dd class="text-ink-800 font-semibold">PKR {{ number_format($maintenanceRequest->contractor_cost, 0) }}</dd></div>
+                        <div class="flex justify-between"><dt class="text-ink-500">GATED coordination fee ({{ rtrim(rtrim(number_format($maintenanceRequest->gated_fee_percent, 2), '0'), '.') }}%)</dt><dd class="font-semibold text-brand-600">PKR {{ number_format($maintenanceRequest->gated_fee_amount, 0) }}</dd></div>
+                        <div class="flex justify-between pt-2 border-t border-ink-100"><dt class="text-ink-700 font-semibold">Total billed to client</dt><dd class="font-heading font-bold text-ink-900">PKR {{ number_format($maintenanceRequest->total_cost, 0) }}</dd></div>
+                    </dl>
+                    <div class="mt-3 flex items-center gap-3">
+                        @if ($maintenanceRequest->invoice_path)
+                            <a href="{{ \App\Support\Media::url($maintenanceRequest->invoice_path) }}" target="_blank" class="text-xs text-brand-600 font-semibold hover:text-brand-700">View Contractor Invoice</a>
+                        @endif
+                        @if ($maintenanceRequest->payment)
+                            <a href="{{ route('admin.payments.show', $maintenanceRequest->payment) }}" class="text-xs text-brand-600 font-semibold hover:text-brand-700">View Client Invoice</a>
+                        @endif
+                    </div>
+                @else
+                    <p class="text-sm text-ink-500 mb-3">Log the contractor's invoice to auto-calculate GATED's tiered fee and generate the client invoice.</p>
+                    <form method="POST" action="{{ route('admin.maintenance.bill', $maintenanceRequest) }}" enctype="multipart/form-data" class="grid sm:grid-cols-2 gap-4">
+                        @csrf
+                        <div>
+                            <label class="text-xs font-semibold text-ink-700">Contractor Invoice Amount (PKR)</label>
+                            <input type="number" step="0.01" min="0" name="contractor_cost" required class="mt-1 w-full rounded-lg border-ink-200 text-sm focus:border-brand-500 focus:ring-brand-500">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-ink-700">Upload Invoice <span class="font-normal text-ink-400">(optional)</span></label>
+                            <input type="file" name="invoice" class="mt-1 w-full text-sm">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <button type="submit" class="btn-primary text-sm">Log Invoice &amp; Bill Client</button>
+                        </div>
+                    </form>
+                @endif
+            </div>
+
+            <div class="card p-6">
                 <h3 class="font-heading font-bold text-ink-900 mb-5">Activity Timeline</h3>
                 <div class="space-y-4">
                     @foreach ($maintenanceRequest->updates as $update)

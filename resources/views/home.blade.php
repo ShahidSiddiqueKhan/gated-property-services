@@ -8,12 +8,12 @@
     {{-- HERO --}}
     <section class="relative bg-ink-950 overflow-hidden">
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-30" alt="Modern managed property">
+            <img src="{{ asset('images/site/villa-aerial-dusk.jpg') }}" class="w-full h-full object-cover opacity-30" alt="GATED managed luxury villa">
             <div class="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/95 to-ink-950/40"></div>
         </div>
 
         <div class="relative max-w-7xl mx-auto px-6 pt-20 pb-24 lg:pt-28 lg:pb-32 grid lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div data-reveal>
                 <span class="section-eyebrow text-brand-500">Trusted Property Management in Pakistan</span>
                 <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-white leading-[1.1]">
                     Your Property. <span class="text-brand-500">Our Responsibility.</span>
@@ -35,22 +35,36 @@
                 </ul>
             </div>
 
-            <div class="hidden lg:block"></div>
+            <div class="hidden lg:block relative" data-reveal="zoom" data-reveal-delay="2">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5]">
+                    <img src="{{ asset('images/site/villa-facade-sunset.jpg') }}" class="w-full h-full object-cover" alt="GATED managed villa at sunset">
+                </div>
+
+                <div class="absolute -right-8 bottom-16 card p-4 shadow-2xl w-52 animate-float" style="animation-delay: 1.2s">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center shrink-0"><x-icon name="check-circle" class="w-5 h-5" /></span>
+                        <div>
+                            <div class="text-[11px] text-ink-500">Occupancy Rate</div>
+                            <div class="font-heading font-bold text-ink-900 text-sm">98% Satisfied</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         {{-- Stats strip --}}
         <div class="relative border-t border-white/10 bg-ink-950/80 backdrop-blur">
-            <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center" data-reveal>
                 <div>
-                    <div class="text-3xl font-heading font-extrabold text-white">{{ number_format($stats['properties_managed']) }}+</div>
+                    <div class="text-3xl font-heading font-extrabold text-white"><span data-counter="{{ $stats['properties_managed'] }}" data-counter-suffix="+">0</span></div>
                     <div class="text-xs uppercase tracking-wide text-ink-400 mt-1">Properties Managed</div>
                 </div>
                 <div>
-                    <div class="text-3xl font-heading font-extrabold text-white">{{ $stats['client_satisfaction'] }}%</div>
+                    <div class="text-3xl font-heading font-extrabold text-white"><span data-counter="{{ $stats['client_satisfaction'] }}" data-counter-suffix="%">0</span></div>
                     <div class="text-xs uppercase tracking-wide text-ink-400 mt-1">Client Satisfaction</div>
                 </div>
                 <div>
-                    <div class="text-3xl font-heading font-extrabold text-white">{{ $stats['years_experience'] }}+</div>
+                    <div class="text-3xl font-heading font-extrabold text-white"><span data-counter="{{ $stats['years_experience'] }}" data-counter-suffix="+">0</span></div>
                     <div class="text-xs uppercase tracking-wide text-ink-400 mt-1">Years of Excellence</div>
                 </div>
                 <div>
@@ -71,7 +85,7 @@
                 @if ($promotion->description) &mdash; {{ $promotion->description }} @endif
                 @if ($promotion->valid_until) <span class="text-ink-400">(valid until {{ $promotion->valid_until->format('M d, Y') }})</span> @endif
             </p>
-            <a href="{{ route('contact.show') }}" class="text-sm font-semibold text-brand-500 hover:text-brand-400 shrink-0">Claim Offer &rarr;</a>
+            <a href="{{ route('promotions.index') }}" class="text-sm font-semibold text-brand-500 hover:text-brand-400 shrink-0">View All Offers &rarr;</a>
         </div>
     </section>
     @endif
@@ -79,7 +93,7 @@
     {{-- SERVICES --}}
     <section class="py-20 lg:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="max-w-2xl mx-auto text-center">
+            <div class="max-w-2xl mx-auto text-center" data-reveal>
                 <span class="section-eyebrow">Our Premium Services</span>
                 <h2 class="mt-3 text-3xl lg:text-4xl font-heading font-extrabold text-ink-900">Everything Your Property Needs, In One Place</h2>
                 <p class="mt-4 text-ink-500">From residential and commercial management to Airbnb hosting and overseas owner support &mdash; GATED covers it all.</p>
@@ -87,8 +101,8 @@
 
             <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ($services as $service)
-                    <a href="{{ route('services.show', $service) }}" class="card p-6 hover:shadow-lg hover:-translate-y-1 transition group">
-                        <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white transition">
+                    <a href="{{ route('services.show', $service) }}" data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}" class="card p-6 hover:shadow-lg hover:-translate-y-1 transition group">
+                        <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center group-hover:bg-brand-600 group-hover:text-white group-hover:scale-110 transition-all duration-300">
                             <x-icon :name="$service->icon" class="w-6 h-6" />
                         </div>
                         <h3 class="mt-4 font-heading font-bold text-ink-900">{{ $service->name }}</h3>
@@ -106,14 +120,14 @@
     {{-- ABOUT strip --}}
     <section class="py-20 lg:py-24 bg-ink-50">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1200&q=80" class="rounded-2xl shadow-xl w-full aspect-[4/3] object-cover" alt="Lahore skyline">
+            <div class="relative" data-reveal="zoom">
+                <img src="{{ asset('images/site/villa-aerial-day.jpg') }}" class="rounded-2xl shadow-xl w-full aspect-[4/3] object-cover" alt="GATED managed luxury villa, aerial view">
                 <div class="absolute -bottom-6 -right-6 bg-ink-950 text-white rounded-2xl px-6 py-4 shadow-xl hidden sm:block">
                     <div class="text-2xl font-heading font-extrabold text-brand-500">7+ Years</div>
                     <div class="text-xs text-ink-300">of Excellence</div>
                 </div>
             </div>
-            <div>
+            <div data-reveal data-reveal-delay="2">
                 <span class="section-eyebrow">About GATED</span>
                 <h2 class="mt-3 text-3xl lg:text-4xl font-heading font-extrabold text-ink-900">We Manage Your Property Like It's Our Own</h2>
                 <p class="mt-4 text-ink-500 leading-relaxed">
@@ -156,7 +170,7 @@
                     ['title' => 'Connection', 'desc' => 'Strong relationship-building with every client.'],
                     ['title' => 'Co-Creation', 'desc' => 'Feedback, surveys, and collaborative decisions.'],
                 ] as $i => $c)
-                    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-brand-600/60 transition">
+                    <div data-reveal data-reveal-delay="{{ min($i + 1, 6) }}" class="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-brand-600/60 hover:bg-white/10 hover:-translate-y-1 transition-all duration-300">
                         <div class="text-3xl font-heading font-extrabold text-brand-500">{{ $i + 1 }}</div>
                         <h3 class="mt-2 font-heading font-bold">{{ $c['title'] }}</h3>
                         <p class="mt-2 text-sm text-ink-300 leading-relaxed">{{ $c['desc'] }}</p>
@@ -174,7 +188,7 @@
     {{-- FEATURED PROPERTIES --}}
     <section class="py-20 lg:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-10" data-reveal>
                 <div>
                     <span class="section-eyebrow">Featured Properties</span>
                     <h2 class="mt-3 text-3xl lg:text-4xl font-heading font-extrabold text-ink-900">Available &amp; Managed Properties</h2>
@@ -184,7 +198,9 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse ($featuredProperties as $property)
-                    @include('properties.partials.card', ['property' => $property])
+                    <div data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}">
+                        @include('properties.partials.card', ['property' => $property])
+                    </div>
                 @empty
                     <p class="text-ink-500 col-span-3">Featured properties will appear here shortly.</p>
                 @endforelse
@@ -195,14 +211,14 @@
     {{-- TESTIMONIALS --}}
     <section class="py-20 lg:py-24 bg-ink-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="max-w-2xl mx-auto text-center">
+            <div class="max-w-2xl mx-auto text-center" data-reveal>
                 <span class="section-eyebrow">What Our Clients Say</span>
                 <h2 class="mt-3 text-3xl lg:text-4xl font-heading font-extrabold text-ink-900">Trusted by Property Owners</h2>
             </div>
 
             <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ($testimonials as $t)
-                    <div class="card p-6">
+                    <div data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}" class="card p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         <div class="flex gap-0.5 text-brand-500 mb-3">
                             @for ($i = 0; $i < $t->rating; $i++)
                                 <x-icon name="star" class="w-4 h-4 fill-current" />
@@ -222,7 +238,7 @@
 
             <div class="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-ink-400 text-sm font-semibold">
                 <span>Trusted by property owners in</span>
-                @foreach (['DHA Lahore','Bahria Town','Emaar Pakistan','Lake City','Gulberg Islamabad'] as $partner)
+                @foreach (['DHA Islamabad','Bahria Town','Emaar Pakistan','Lake City','Gulberg Islamabad'] as $partner)
                     <span class="text-ink-500">{{ $partner }}</span>
                 @endforeach
             </div>
@@ -233,7 +249,7 @@
     @if ($posts->count())
     <section class="py-20 lg:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-10" data-reveal>
                 <div>
                     <span class="section-eyebrow">Resources</span>
                     <h2 class="mt-3 text-3xl lg:text-4xl font-heading font-extrabold text-ink-900">Latest Insights &amp; Guidance</h2>
@@ -243,7 +259,9 @@
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach ($posts as $post)
-                    @include('blog.partials.card', ['post' => $post])
+                    <div data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}">
+                        @include('blog.partials.card', ['post' => $post])
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -251,15 +269,16 @@
     @endif
 
     {{-- CTA --}}
-    <section class="py-16 bg-brand-600">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8">
+    <section class="py-16 bg-brand-600 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 30%, white 1px, transparent 1px), radial-gradient(circle at 80% 70%, white 1px, transparent 1px); background-size: 48px 48px;"></div>
+        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-8 relative" data-reveal>
             <div class="text-center lg:text-left">
                 <h2 class="text-2xl lg:text-3xl font-heading font-extrabold text-white">Let's Manage Your Property the Smart Way</h2>
                 <p class="mt-2 text-brand-100">Register today and get a free consultation with our property management specialists.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-3">
                 <a href="{{ route('property-registration.create') }}" class="btn-dark">Get Started Today</a>
-                <a href="tel:+923001234567" class="btn-outline-white">Call Now: +92 300 1234567</a>
+                <a href="tel:+923009558737" class="btn-outline-white">Call Now: +92 300 9558737</a>
             </div>
         </div>
     </section>

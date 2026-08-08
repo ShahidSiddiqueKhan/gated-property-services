@@ -14,9 +14,9 @@
             <div class="text-2xl font-heading font-extrabold text-emerald-600 mt-1">PKR {{ number_format($totalPaidThisYear) }}</div>
         </div>
         <div class="card p-5">
-            <div class="text-xs text-ink-500">Payment Method</div>
-            <div class="text-sm font-semibold text-ink-800 mt-2">Bank Transfer (manual confirmation)</div>
-            <div class="text-xs text-ink-400 mt-1">Card payments coming soon</div>
+            <div class="text-xs text-ink-500">Ways to Pay</div>
+            <div class="text-sm font-semibold text-ink-800 mt-2 flex items-center gap-1.5"><x-icon name="credit-card" class="w-4 h-4 text-ink-400" /> Card (Stripe) &middot; JazzCash &middot; Safepay &middot; Bank Transfer</div>
+            <div class="text-xs text-ink-400 mt-1">Card, JazzCash &amp; Safepay confirm instantly</div>
         </div>
     </div>
 

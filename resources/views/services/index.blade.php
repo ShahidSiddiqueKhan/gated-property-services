@@ -5,8 +5,9 @@
 
 @section('content')
 
-    <section class="bg-ink-950 text-white py-20 text-center">
-        <div class="max-w-3xl mx-auto px-6">
+    <section class="bg-ink-950 text-white py-20 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 15% 20%, var(--color-brand-600) 0%, transparent 40%), radial-gradient(circle at 85% 80%, var(--color-brand-700) 0%, transparent 40%);"></div>
+        <div class="max-w-3xl mx-auto px-6 relative" data-reveal>
             <span class="section-eyebrow text-brand-500">Our Premium Services</span>
             <h1 class="mt-3 text-4xl lg:text-5xl font-heading font-extrabold">Comprehensive Property Management Solutions</h1>
             <p class="mt-4 text-ink-300">Tailored to your needs &mdash; whether you own a single apartment or a growing portfolio.</p>
@@ -16,7 +17,7 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($services as $service)
-                <div class="card p-8 flex flex-col hover:shadow-lg transition">
+                <div class="card p-8 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300" data-reveal data-reveal-delay="{{ min($loop->iteration, 6) }}">
                     <div class="w-14 h-14 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
                         <x-icon :name="$service->icon" class="w-7 h-7" />
                     </div>
@@ -34,7 +35,7 @@
     </section>
 
     <section class="py-16 bg-ink-50">
-        <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="max-w-4xl mx-auto px-6 text-center" data-reveal>
             <span class="section-eyebrow">Cost &amp; Transparency</span>
             <h2 class="mt-3 text-3xl font-heading font-extrabold text-ink-900">Simple, Transparent Pricing</h2>
             <p class="mt-4 text-ink-500">Every service package includes clear pricing with no hidden fees. Request a personalised quote and we'll walk you through exactly what's included.</p>

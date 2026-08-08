@@ -43,3 +43,16 @@
         </select>
     </div>
 </div>
+
+@unless ($lease)
+    <div class="mt-4 pt-4 border-t border-ink-100" x-data="{ charge: false }">
+        <label class="flex items-center gap-2 text-sm text-ink-700">
+            <input type="checkbox" name="charge_placement_fee" value="1" x-model="charge" class="rounded border-ink-300 text-brand-600 focus:ring-brand-500"> Charge a tenant placement fee for this new tenant
+        </label>
+        <div x-show="charge" x-cloak class="mt-3 max-w-xs">
+            <label class="text-sm font-semibold text-ink-700">Placement Fee % of Monthly Rent</label>
+            <input type="number" step="1" min="50" max="100" name="placement_fee_percent" value="50" class="mt-1 w-full rounded-lg border-ink-200 focus:border-brand-500 focus:ring-brand-500">
+            <p class="mt-1 text-xs text-ink-400">Standard range 50–100%, set per client agreement.</p>
+        </div>
+    </div>
+@endunless

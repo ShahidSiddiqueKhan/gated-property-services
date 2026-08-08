@@ -20,6 +20,8 @@ class DashboardController extends Controller
         $totalProperties = Property::count();
         $occupied = Property::where('status', 'occupied')->count();
         $vacant = Property::where('status', 'vacant')->count();
+        $underMaintenance = Property::where('status', 'maintenance')->count();
+        $occupancyRate = $totalProperties > 0 ? round(($occupied / $totalProperties) * 100) : 0;
         $pendingApprovals = Property::where('status', 'pending_review')->count();
 
         $revenueThisMonth = Payment::where('status', 'paid')
@@ -49,7 +51,7 @@ class DashboardController extends Controller
         $recentActivity = AuditLog::with('user')->latest()->take(8)->get();
 
         return view('admin.dashboard', compact(
-            'totalClients', 'totalProperties', 'occupied', 'vacant', 'pendingApprovals',
+            'totalClients', 'totalProperties', 'occupied', 'vacant', 'underMaintenance', 'occupancyRate', 'pendingApprovals',
             'revenueThisMonth', 'pendingPayments', 'pendingPaymentsAmount',
             'openMaintenance', 'emergencyMaintenance', 'newLeads', 'newMessages',
             'monthlyRevenue', 'recentActivity',

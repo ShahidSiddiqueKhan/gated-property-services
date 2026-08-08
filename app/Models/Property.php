@@ -73,6 +73,21 @@ class Property extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function propertyPackages()
+    {
+        return $this->hasMany(PropertyPackage::class);
+    }
+
+    public function activePackage()
+    {
+        return $this->hasOne(PropertyPackage::class)->where('status', 'active')->latestOfMany();
+    }
+
+    public function renovationProjects()
+    {
+        return $this->hasMany(RenovationProject::class);
+    }
+
     public function scopePublished($query)
     {
         return $query->whereNotNull('published_at');

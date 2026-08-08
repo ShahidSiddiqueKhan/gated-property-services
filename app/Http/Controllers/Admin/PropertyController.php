@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
+use App\Models\Package;
 use App\Models\Property;
 use App\Models\PropertyImage;
+use App\Models\ServiceCatalogItem;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -69,9 +71,12 @@ class PropertyController extends Controller
 
     public function show(Property $property): View
     {
-        $property->load('owner', 'images', 'leases', 'payments', 'maintenanceRequests', 'documents');
+        $property->load('owner', 'images', 'leases', 'payments', 'maintenanceRequests', 'documents', 'activePackage.package', 'propertyPackages.package', 'renovationProjects');
 
-        return view('admin.properties.show', compact('property'));
+        $packages = Package::active()->get();
+        $serviceCatalog = ServiceCatalogItem::active()->orderBy('category')->orderBy('sort_order')->get();
+
+        return view('admin.properties.show', compact('property', 'packages', 'serviceCatalog'));
     }
 
     public function edit(Property $property): View

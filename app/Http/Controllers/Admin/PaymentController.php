@@ -7,6 +7,7 @@ use App\Models\AuditLog;
 use App\Models\Payment;
 use App\Models\Property;
 use App\Models\User;
+use App\Services\Billing\FeeCalculator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -14,6 +15,10 @@ use Illuminate\View\View;
 
 class PaymentController extends Controller
 {
+    public function __construct(protected FeeCalculator $feeCalculator)
+    {
+    }
+
     public function index(Request $request): View
     {
         $query = Payment::with('user', 'property');
@@ -58,8 +63,30 @@ class PaymentController extends Controller
             'notes' => ['nullable', 'string', 'max:500'],
         ]);
 
+        $revenueFields = [];
+
+        // Rent invoices represent the full rent GATED collects on the owner's
+        // behalf — split it into GATED's commission and the owner's net
+        // using the property's active package commission (or override).
+        if ($validated['type'] === 'rent' && $validated['property_id']) {
+            $property = Property::with('activePackage')->find($validated['property_id']);
+            $commissionPercent = (float) ($property?->activePackage?->commission_percent ?? 0);
+
+            if ($commissionPercent > 0) {
+                $split = $this->feeCalculator->rentCommission((float) $validated['amount'], $commissionPercent);
+
+                $revenueFields = [
+                    'revenue_stream' => Payment::STREAM_RENT_COMMISSION,
+                    'base_amount' => $split['rent_amount'],
+                    'fee_percent' => $split['commission_percent'],
+                    'owner_amount' => $split['owner_amount'],
+                ];
+            }
+        }
+
         $payment = Payment::create([
             ...$validated,
+            ...$revenueFields,
             'invoice_no' => 'INV-' . strtoupper(Str::random(8)),
             'status' => 'due',
         ]);

@@ -56,8 +56,8 @@
                 <button type="submit" class="btn-primary w-full justify-center text-sm">Send to Support</button>
             </form>
             <div class="mt-5 pt-5 border-t border-ink-100 text-xs text-ink-500 space-y-2">
-                <p class="flex items-center gap-2"><x-icon name="phone" class="w-4 h-4 text-brand-600" /> +92 300 1234567</p>
-                <p class="flex items-center gap-2"><x-icon name="envelope" class="w-4 h-4 text-brand-600" /> info@gatedpropertyservices.com</p>
+                <p class="flex items-center gap-2"><x-icon name="phone" class="w-4 h-4 text-brand-600" /> +92 300 9558737</p>
+                <p class="flex items-center gap-2"><x-icon name="envelope" class="w-4 h-4 text-brand-600" /> shahidjamil21@gmail.com</p>
                 <p class="flex items-center gap-2"><x-icon name="clock" class="w-4 h-4 text-brand-600" /> Avg. response time: under 1 hour</p>
             </div>
         </aside>

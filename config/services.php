@@ -35,4 +35,41 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Gateways
+    |--------------------------------------------------------------------------
+    |
+    | Stripe handles card payments, aimed at overseas property owners paying
+    | in a foreign currency. JazzCash handles local mobile-wallet payments
+    | for owners inside Pakistan. Both run against test/sandbox endpoints
+    | until real merchant credentials are supplied in .env.
+    |
+    */
+
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+        'currency' => env('STRIPE_CURRENCY', 'usd'),
+    ],
+
+    'jazzcash' => [
+        'merchant_id' => env('JAZZCASH_MERCHANT_ID'),
+        'password' => env('JAZZCASH_PASSWORD'),
+        'integrity_salt' => env('JAZZCASH_INTEGRITY_SALT'),
+        'environment' => env('JAZZCASH_ENV', 'sandbox'), // sandbox|live
+    ],
+
+    // Safepay — admin-added third gateway (cards, wallets & bank rails via a
+    // single Pakistani aggregator). api_key is the public "client" key,
+    // secret is the v1 signing secret used to verify the return redirect,
+    // webhook_secret verifies async payment.succeeded/failed webhooks.
+    'safepay' => [
+        'api_key' => env('SAFEPAY_API_KEY'),
+        'secret' => env('SAFEPAY_SECRET'),
+        'webhook_secret' => env('SAFEPAY_WEBHOOK_SECRET'),
+        'environment' => env('SAFEPAY_ENV', 'sandbox'), // sandbox|production
+    ],
+
 ];

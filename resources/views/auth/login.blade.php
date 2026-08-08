@@ -4,9 +4,10 @@
 
 @section('content')
 
-    <section class="min-h-[calc(100vh-80px)] bg-ink-950 flex items-center py-16">
-        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full">
-            <div class="hidden lg:block text-white">
+    <section class="min-h-[calc(100vh-80px)] bg-ink-950 flex items-center py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 15% 20%, var(--color-brand-600) 0%, transparent 40%), radial-gradient(circle at 85% 80%, var(--color-brand-700) 0%, transparent 40%);"></div>
+        <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center w-full relative">
+            <div class="hidden lg:block text-white" data-reveal>
                 <span class="section-eyebrow text-brand-500">Client Portal</span>
                 <h1 class="mt-3 text-4xl font-heading font-extrabold leading-tight">Access Anytime, Anywhere</h1>
                 <p class="mt-4 text-ink-300 max-w-md">Track rent, maintenance, documents and communication with GATED &mdash; all from one secure dashboard.</p>
@@ -17,7 +18,7 @@
                 </ul>
             </div>
 
-            <div class="card p-8 sm:p-10 w-full max-w-md mx-auto">
+            <div class="card p-8 sm:p-10 w-full max-w-md mx-auto shadow-2xl" data-reveal="zoom" data-reveal-delay="1">
                 <h2 class="font-heading font-extrabold text-2xl text-ink-900">Welcome Back</h2>
                 <p class="text-sm text-ink-500 mt-1">Log in to your GATED Client Portal.</p>
 
@@ -29,12 +30,18 @@
                     @csrf
                     <div>
                         <label class="text-sm font-semibold text-ink-700">Email Address</label>
-                        <input type="email" name="email" value="{{ old('email') }}" required autofocus class="mt-1 w-full rounded-lg border-ink-200 focus:border-brand-500 focus:ring-brand-500">
+                        <div class="input-icon-group mt-1">
+                            <x-icon name="envelope" />
+                            <input type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="you@example.com" class="w-full rounded-lg border-ink-200 focus:border-brand-500 focus:ring-brand-500">
+                        </div>
                         @error('email') <p class="text-xs text-brand-600 mt-1">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="text-sm font-semibold text-ink-700">Password</label>
-                        <input type="password" name="password" required class="mt-1 w-full rounded-lg border-ink-200 focus:border-brand-500 focus:ring-brand-500">
+                        <div class="input-icon-group mt-1">
+                            <x-icon name="shield-check" />
+                            <input type="password" name="password" required placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" class="w-full rounded-lg border-ink-200 focus:border-brand-500 focus:ring-brand-500">
+                        </div>
                     </div>
                     <div class="flex items-center justify-between text-sm">
                         <label class="flex items-center gap-2 text-ink-600">

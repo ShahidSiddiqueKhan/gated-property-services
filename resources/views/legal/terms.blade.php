@@ -23,7 +23,7 @@
             <p>Clients agree to provide accurate property and ownership information and to keep login credentials confidential. Submitting fraudulent ownership documents may result in account termination.</p>
 
             <h3>Payments</h3>
-            <p>Service fees and rent handling terms are agreed per property. Manual bank transfer is currently supported with confirmation reviewed by our finance team; live card payments will be enabled once integrated.</p>
+            <p>Service fees and rent handling terms are agreed per property. Payments may be made instantly by card (via Stripe) or JazzCash mobile wallet, or by manual bank transfer with confirmation reviewed by our finance team.</p>
 
             <h3>Limitation of Liability</h3>
             <p>GATED exercises reasonable care and diligence in managing properties but is not liable for events outside its reasonable control, including tenant default, force majeure, or third-party contractor performance beyond agreed service levels.</p>
@@ -32,7 +32,7 @@
             <p>Either party may terminate the management agreement per the terms outlined in the individual property management contract signed at onboarding.</p>
 
             <h3>Contact</h3>
-            <p>For questions about these terms, contact info@gatedpropertyservices.com.</p>
+            <p>For questions about these terms, contact shahidjamil21@gmail.com.</p>
         </div>
     </section>
 

@@ -22,6 +22,8 @@ class DashboardController extends Controller
         $totalProperties = $properties->count();
         $occupied = $properties->where('status', 'occupied')->count();
         $vacant = $properties->where('status', 'vacant')->count();
+        $underMaintenance = $properties->where('status', 'maintenance')->count();
+        $occupancyRate = $totalProperties > 0 ? round(($occupied / $totalProperties) * 100) : 0;
 
         $monthlyRent = Payment::where('user_id', $user->id)
             ->where('type', 'rent')
@@ -85,6 +87,8 @@ class DashboardController extends Controller
             'totalProperties',
             'occupied',
             'vacant',
+            'underMaintenance',
+            'occupancyRate',
             'monthlyRent',
             'thisMonthEarning',
             'rentReceived',

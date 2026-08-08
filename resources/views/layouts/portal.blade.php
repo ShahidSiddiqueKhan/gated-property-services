@@ -15,6 +15,7 @@
         $navItems = [
             ['route' => 'portal.dashboard', 'icon' => 'chart-bar', 'label' => 'Dashboard'],
             ['route' => 'portal.properties.index', 'icon' => 'building-office', 'label' => 'My Properties'],
+            ['route' => 'portal.finances.index', 'icon' => 'chart-bar', 'label' => 'Financials'],
             ['route' => 'portal.payments.index', 'icon' => 'banknotes', 'label' => 'Rent & Payments'],
             ['route' => 'portal.maintenance.index', 'icon' => 'wrench-screwdriver', 'label' => 'Maintenance'],
             ['route' => 'portal.documents.index', 'icon' => 'document-text', 'label' => 'Documents'],
@@ -105,6 +106,11 @@
             @if (session('success'))
                 <div class="mx-6 mt-6 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm p-4 flex items-center gap-2">
                     <x-icon name="check-circle" class="w-5 h-5 shrink-0" /> {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="mx-6 mt-6 rounded-lg bg-brand-50 border border-brand-200 text-brand-800 text-sm p-4 flex items-center gap-2">
+                    <x-icon name="exclamation-triangle" class="w-5 h-5 shrink-0" /> {{ session('error') }}
                 </div>
             @endif
 

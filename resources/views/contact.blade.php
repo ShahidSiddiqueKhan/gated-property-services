@@ -5,8 +5,9 @@
 
 @section('content')
 
-    <section class="bg-ink-950 text-white py-16 text-center">
-        <div class="max-w-3xl mx-auto px-6">
+    <section class="bg-ink-950 text-white py-16 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 15% 20%, var(--color-brand-600) 0%, transparent 40%), radial-gradient(circle at 85% 80%, var(--color-brand-700) 0%, transparent 40%);"></div>
+        <div class="max-w-3xl mx-auto px-6 relative" data-reveal>
             <span class="section-eyebrow text-brand-500">Communication Center</span>
             <h1 class="mt-3 text-4xl font-heading font-extrabold">Let's Talk About Your Property</h1>
             <p class="mt-4 text-ink-300">Multiple ways to reach us &mdash; pick whichever is most convenient.</p>
@@ -15,19 +16,19 @@
 
     <section class="py-6 bg-white border-b border-ink-100">
         <div class="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <a href="tel:+923001234567" class="card p-5 flex items-center gap-3 hover:shadow-lg transition">
-                <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center"><x-icon name="phone" class="w-5 h-5" /></span>
-                <div><div class="text-sm font-bold text-ink-900">Call Us</div><div class="text-xs text-ink-500">+92 300 1234567</div></div>
+            <a href="tel:+923009558737" class="card p-5 flex items-center gap-3 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group" data-reveal data-reveal-delay="1">
+                <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"><x-icon name="phone" class="w-5 h-5" /></span>
+                <div><div class="text-sm font-bold text-ink-900">Call Us</div><div class="text-xs text-ink-500">+92 300 9558737</div></div>
             </a>
-            <a href="https://wa.me/923001234567" target="_blank" class="card p-5 flex items-center gap-3 hover:shadow-lg transition">
-                <span class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center"><x-icon name="chat" class="w-5 h-5" /></span>
+            <a href="https://wa.me/923009558737" target="_blank" class="card p-5 flex items-center gap-3 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group" data-reveal data-reveal-delay="2">
+                <span class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"><x-icon name="chat" class="w-5 h-5" /></span>
                 <div><div class="text-sm font-bold text-ink-900">WhatsApp</div><div class="text-xs text-ink-500">Usually replies in &lt;1 hr</div></div>
             </a>
-            <a href="mailto:info@gatedpropertyservices.com" class="card p-5 flex items-center gap-3 hover:shadow-lg transition">
-                <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center"><x-icon name="envelope" class="w-5 h-5" /></span>
-                <div><div class="text-sm font-bold text-ink-900">Email</div><div class="text-xs text-ink-500">info@gatedpropertyservices.com</div></div>
+            <a href="mailto:shahidjamil21@gmail.com" class="card p-5 flex items-center gap-3 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group" data-reveal data-reveal-delay="3">
+                <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300"><x-icon name="envelope" class="w-5 h-5" /></span>
+                <div><div class="text-sm font-bold text-ink-900">Email</div><div class="text-xs text-ink-500">shahidjamil21@gmail.com</div></div>
             </a>
-            <div class="card p-5 flex items-center gap-3">
+            <div class="card p-5 flex items-center gap-3" data-reveal data-reveal-delay="4">
                 <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center"><x-icon name="video-camera" class="w-5 h-5" /></span>
                 <div><div class="text-sm font-bold text-ink-900">Video Consultation</div><div class="text-xs text-ink-500">Book via the form &rarr;</div></div>
             </div>
@@ -36,7 +37,7 @@
 
     <section class="py-16 bg-ink-50">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-5 gap-10">
-            <div class="lg:col-span-3 card p-8">
+            <div class="lg:col-span-3 card p-8" data-reveal>
                 <h2 class="font-heading font-bold text-xl text-ink-900">Send Us a Message</h2>
 
                 @if (session('success'))
@@ -89,14 +90,14 @@
                 </form>
             </div>
 
-            <div class="lg:col-span-2 space-y-6">
+            <div class="lg:col-span-2 space-y-6" data-reveal data-reveal-delay="2">
                 <div class="card p-6">
                     <h3 class="font-heading font-bold text-ink-900">Office</h3>
-                    <p class="mt-2 text-sm text-ink-500 flex items-start gap-2"><x-icon name="map-pin" class="w-4 h-4 mt-0.5 text-brand-600 shrink-0" /> GATED Property Services HQ, Gulberg, Lahore, Pakistan</p>
+                    <p class="mt-2 text-sm text-ink-500 flex items-start gap-2"><x-icon name="map-pin" class="w-4 h-4 mt-0.5 text-brand-600 shrink-0" /> GATED Property Services HQ, Gulberg, Islamabad, Pakistan</p>
                     <p class="mt-2 text-sm text-ink-500 flex items-start gap-2"><x-icon name="clock" class="w-4 h-4 mt-0.5 text-brand-600 shrink-0" /> Mon &ndash; Sat: 9:00 AM &ndash; 8:00 PM &middot; 24/7 Client Support</p>
                 </div>
-                <div class="rounded-2xl overflow-hidden aspect-video">
-                    <iframe src="https://www.google.com/maps?q=Gulberg,Lahore,Pakistan&output=embed" class="w-full h-full border-0" loading="lazy" title="GATED Property Services location"></iframe>
+                <div class="rounded-2xl overflow-hidden aspect-video shadow-sm">
+                    <iframe src="https://www.google.com/maps?q=Gulberg,Islamabad,Pakistan&output=embed" class="w-full h-full border-0" loading="lazy" title="GATED Property Services location"></iframe>
                 </div>
             </div>
         </div>

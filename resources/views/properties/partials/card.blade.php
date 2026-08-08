@@ -9,9 +9,10 @@
     ];
 @endphp
 
-<a href="{{ route('properties.show', $property) }}" class="card overflow-hidden group hover:shadow-lg transition flex flex-col">
+<a href="{{ route('properties.show', $property) }}" class="card overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
     <div class="relative aspect-[4/3] overflow-hidden">
-        <img src="{{ $imageUrl }}" alt="{{ $property->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+        <img src="{{ $imageUrl }}" alt="{{ $property->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <span class="absolute top-3 left-3 badge bg-ink-950/90 text-white">{{ $property->listing_type === 'sale' ? 'For Sale' : 'For Rent' }}</span>
         <span class="absolute top-3 right-3 badge {{ $statusColors[$property->status] ?? 'bg-ink-100 text-ink-600' }}">{{ ucfirst(str_replace('_', ' ', $property->status)) }}</span>
     </div>

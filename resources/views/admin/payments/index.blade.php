@@ -38,7 +38,12 @@
                             <td class="px-6 py-4 text-ink-600">{{ $payment->property?->title ?? '—' }}</td>
                             <td class="px-6 py-4 font-semibold text-ink-900">PKR {{ number_format($payment->amount) }}</td>
                             <td class="px-6 py-4 text-ink-600">{{ $payment->due_date?->format('M d, Y') ?? '—' }}</td>
-                            <td class="px-6 py-4"><span class="badge {{ $statusColors[$payment->status] ?? '' }}">{{ ucfirst(str_replace('_',' ',$payment->status)) }}</span></td>
+                            <td class="px-6 py-4">
+                                <span class="badge {{ $statusColors[$payment->status] ?? '' }}">{{ ucfirst(str_replace('_',' ',$payment->status)) }}</span>
+                                @if ($payment->gateway)
+                                    <div class="text-[10px] text-ink-400 mt-1 capitalize">via {{ $payment->gateway }}</div>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 text-right space-x-2 whitespace-nowrap">
                                 @if (in_array($payment->status, ['due', 'overdue', 'pending_review']))
                                     <form method="POST" action="{{ route('admin.payments.confirm', $payment) }}" class="inline">

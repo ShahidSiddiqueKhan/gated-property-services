@@ -4,9 +4,10 @@
 
 @section('content')
 
-    <section class="min-h-[calc(100vh-80px)] bg-ink-950 flex items-center py-16">
-        <div class="max-w-md mx-auto px-6 w-full">
-            <div class="card p-8 sm:p-10">
+    <section class="min-h-[calc(100vh-80px)] bg-ink-950 flex items-center py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 15% 20%, var(--color-brand-600) 0%, transparent 40%), radial-gradient(circle at 85% 80%, var(--color-brand-700) 0%, transparent 40%);"></div>
+        <div class="max-w-md mx-auto px-6 w-full relative">
+            <div class="card p-8 sm:p-10 shadow-2xl" data-reveal="zoom">
                 <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center mb-4">
                     <x-icon name="lock-closed" class="w-6 h-6" />
                 </div>

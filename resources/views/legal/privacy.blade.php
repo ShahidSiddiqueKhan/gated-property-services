@@ -29,10 +29,10 @@
             <p>We retain your information for as long as your account is active or as needed to provide services, and as required by tax, legal, and regulatory obligations.</p>
 
             <h3>Your Rights</h3>
-            <p>You may request a copy of the personal data we hold about you, ask us to correct inaccurate information, or request deletion of your account and associated data, subject to our legal retention obligations. To make a request, contact us via the Messages center in your Client Portal or email info@gatedpropertyservices.com.</p>
+            <p>You may request a copy of the personal data we hold about you, ask us to correct inaccurate information, or request deletion of your account and associated data, subject to our legal retention obligations. To make a request, contact us via the Messages center in your Client Portal or email shahidjamil21@gmail.com.</p>
 
             <h3>Contact</h3>
-            <p>Questions about this policy can be directed to info@gatedpropertyservices.com.</p>
+            <p>Questions about this policy can be directed to shahidjamil21@gmail.com.</p>
         </div>
     </section>
 
