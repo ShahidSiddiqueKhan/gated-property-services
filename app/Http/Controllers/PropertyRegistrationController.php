@@ -96,11 +96,15 @@ class PropertyRegistrationController extends Controller
         }
 
         if ($request->hasFile('legal_documents')) {
-            $paths = [];
+            $documents = [];
             foreach ($request->file('legal_documents') as $file) {
-                $paths[] = $file->store('properties/' . $property->id . '/legal', 'public');
+                $documents[] = [
+                    'path' => $file->store('properties/' . $property->id . '/legal', 'public'),
+                    'name' => $file->getClientOriginalName(),
+                    'size' => $file->getSize(),
+                ];
             }
-            $property->update(['legal_documents' => $paths]);
+            $property->update(['legal_documents' => $documents]);
         }
 
         return redirect()

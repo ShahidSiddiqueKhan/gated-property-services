@@ -24,11 +24,11 @@
     <div class="hidden lg:block bg-ink-950 text-ink-200 text-xs">
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-between py-2">
             <div class="flex items-center gap-6">
-                <a href="tel:+923009558737" class="flex items-center gap-1.5 hover:text-white transition">
-                    <x-icon name="phone" class="w-3.5 h-3.5" /> +92 300 9558737
+                <a href="tel:+923215381128" class="flex items-center gap-1.5 hover:text-white transition">
+                    <x-icon name="phone" class="w-3.5 h-3.5" /> +92 321 5381128
                 </a>
-                <a href="mailto:shahidjamil21@gmail.com" class="flex items-center gap-1.5 hover:text-white transition">
-                    <x-icon name="envelope" class="w-3.5 h-3.5" /> shahidjamil21@gmail.com
+                <a href="mailto:rafayshahid0890@gmail.com" class="flex items-center gap-1.5 hover:text-white transition">
+                    <x-icon name="envelope" class="w-3.5 h-3.5" /> rafayshahid0890@gmail.com
                 </a>
                 <span class="flex items-center gap-1.5">
                     <x-icon name="map-pin" class="w-3.5 h-3.5" /> Islamabad, Pakistan
@@ -36,7 +36,7 @@
             </div>
             <div class="flex items-center gap-4">
                 <span class="text-ink-400">Response time: usually within 1 hour</span>
-                <a href="https://wa.me/923009558737" target="_blank" rel="noopener" class="hover:text-white transition">WhatsApp</a>
+                <a href="https://wa.me/923215381128" target="_blank" rel="noopener" class="hover:text-white transition">WhatsApp</a>
             </div>
         </div>
     </div>
@@ -168,8 +168,8 @@
             <div>
                 <h4 class="font-heading font-bold text-white mb-4">Get In Touch</h4>
                 <ul class="space-y-3 text-sm">
-                    <li class="flex items-start gap-2"><x-icon name="phone" class="w-4 h-4 mt-0.5 text-brand-500 shrink-0" /> +92 300 9558737</li>
-                    <li class="flex items-start gap-2"><x-icon name="envelope" class="w-4 h-4 mt-0.5 text-brand-500 shrink-0" /> shahidjamil21@gmail.com</li>
+                    <li class="flex items-start gap-2"><x-icon name="phone" class="w-4 h-4 mt-0.5 text-brand-500 shrink-0" /> +92 321 5381128</li>
+                    <li class="flex items-start gap-2"><x-icon name="envelope" class="w-4 h-4 mt-0.5 text-brand-500 shrink-0" /> rafayshahid0890@gmail.com</li>
                     <li class="flex items-start gap-2"><x-icon name="map-pin" class="w-4 h-4 mt-0.5 text-brand-500 shrink-0" /> Islamabad, Pakistan</li>
                     <li class="flex items-start gap-2"><x-icon name="clock" class="w-4 h-4 mt-0.5 text-brand-500 shrink-0" /> 24/7 Client Support</li>
                 </ul>
@@ -229,7 +229,7 @@
                 <x-icon name="chat" class="w-5 h-5" />
                 <span class="text-sm font-semibold hidden sm:inline">Live Chat</span>
             </button>
-            <a href="https://wa.me/923009558737" target="_blank" rel="noopener"
+            <a href="https://wa.me/923215381128" target="_blank" rel="noopener"
                class="flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white pl-4 pr-5 py-3.5 shadow-lg shadow-emerald-500/30 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 fill-current"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.77.46 3.45 1.27 4.9L2 22l5.25-1.38A9.94 9.94 0 0 0 12.04 22c5.52 0 10-4.48 10-10s-4.48-10-10-10Zm0 18.2a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.04-.2-.31A8.2 8.2 0 1 1 12.04 20.2Zm4.5-6.13c-.25-.12-1.46-.72-1.69-.8-.23-.08-.39-.12-.56.13-.17.25-.64.8-.79.96-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.44-.06-.12-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.42-.14 0-.31-.02-.48-.02-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.02 2.57.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.66-1.17.21-.58.21-1.08.14-1.18-.06-.1-.23-.16-.48-.28Z"/></svg>
                 <span class="text-sm font-semibold hidden sm:inline">WhatsApp</span>

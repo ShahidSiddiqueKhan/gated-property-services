@@ -17,8 +17,8 @@ use Illuminate\Support\Collection;
  * JAZZCASH_ENV=live and supply live credentials before accepting real payments.
  *
  * Hash algorithm verified against JazzCash's documented Page Redirection spec
- * (pp_Version 1.1): sort all non-empty pp_*/ppmpf_* fields alphabetically by
- * field name, join their values with '&', prefix with the integrity salt,
+ * (pp_Version 1.1): sort all non-empty pp_ and ppmpf_ prefixed fields
+ * alphabetically by field name, join their values with '&', prefix with the integrity salt,
  * then HMAC-SHA256 the result using the integrity salt as the key.
  */
 class JazzCashGateway

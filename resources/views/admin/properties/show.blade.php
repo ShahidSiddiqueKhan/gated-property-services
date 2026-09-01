@@ -212,9 +212,26 @@
             @if (!empty($property->legal_documents))
                 <div class="card p-6">
                     <h3 class="font-heading font-bold text-ink-900 text-sm mb-3">Legal Documents</h3>
-                    @foreach ($property->legal_documents as $doc)
-                        <a href="{{ \App\Support\Media::url($doc) }}" target="_blank" class="block text-sm text-brand-600 hover:text-brand-700 py-1">Document {{ $loop->iteration }}</a>
-                    @endforeach
+                    <div class="space-y-2">
+                        @foreach ($property->legal_documents as $doc)
+                            @php
+                                $path = is_array($doc) ? ($doc['path'] ?? null) : $doc;
+                                $name = is_array($doc) ? ($doc['name'] ?? 'Document ' . $loop->iteration) : 'Document ' . $loop->iteration;
+                                $size = is_array($doc) ? ($doc['size'] ?? null) : null;
+                                $ext = strtoupper(pathinfo($name, PATHINFO_EXTENSION)) ?: 'FILE';
+                            @endphp
+                            <a href="{{ \App\Support\Media::url($path) }}" target="_blank" class="flex items-center gap-3 rounded-lg border border-ink-100 p-3 hover:border-brand-300 hover:bg-brand-50/30 transition">
+                                <span class="w-9 h-9 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center text-[10px] font-bold shrink-0">{{ $ext }}</span>
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-sm font-medium text-ink-800 truncate">{{ $name }}</div>
+                                    @if ($size)
+                                        <div class="text-xs text-ink-400">{{ $size < 1024*1024 ? number_format($size / 1024, 1) . ' KB' : number_format($size / 1024 / 1024, 1) . ' MB' }}</div>
+                                    @endif
+                                </div>
+                                <x-icon name="arrow-right" class="w-4 h-4 text-ink-400 shrink-0" />
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
             @endif
 

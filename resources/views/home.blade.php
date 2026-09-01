@@ -278,7 +278,7 @@
             </div>
             <div class="flex flex-wrap justify-center gap-3">
                 <a href="{{ route('property-registration.create') }}" class="btn-dark">Get Started Today</a>
-                <a href="tel:+923009558737" class="btn-outline-white">Call Now: +92 300 9558737</a>
+                <a href="tel:+923215381128" class="btn-outline-white">Call Now: +92 321 5381128</a>
             </div>
         </div>
     </section>

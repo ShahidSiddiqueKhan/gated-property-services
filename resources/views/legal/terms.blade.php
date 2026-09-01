@@ -32,7 +32,7 @@
             <p>Either party may terminate the management agreement per the terms outlined in the individual property management contract signed at onboarding.</p>
 
             <h3>Contact</h3>
-            <p>For questions about these terms, contact shahidjamil21@gmail.com.</p>
+            <p>For questions about these terms, contact rafayshahid0890@gmail.com.</p>
         </div>
     </section>
 

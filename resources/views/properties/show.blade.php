@@ -190,7 +190,7 @@
                     </div>
                     <p class="mt-1 text-xs text-ink-500">Managed fully by GATED Property Services</p>
                     <a href="{{ route('contact.show') }}" class="btn-primary w-full mt-5 justify-center">Enquire About This Property</a>
-                    <a href="tel:+923009558737" class="btn-outline w-full mt-3 justify-center">Call +92 300 9558737</a>
+                    <a href="tel:+923215381128" class="btn-outline w-full mt-3 justify-center">Call +92 321 5381128</a>
                 </div>
 
                 <div class="card p-6">

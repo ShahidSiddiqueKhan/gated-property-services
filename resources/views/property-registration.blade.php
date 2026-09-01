@@ -192,12 +192,36 @@
                         <span class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-sm">3</span>
                         <h2 class="font-heading font-bold text-lg text-ink-900">Legal Documents</h2>
                     </div>
-                    <label class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-ink-200 rounded-xl p-8 cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-all duration-300 text-center">
-                        <x-icon name="arrow-up-tray" class="w-8 h-8 text-ink-400" />
-                        <span class="text-sm font-semibold text-ink-700">Upload ownership documents, title deeds, or CNIC copies</span>
-                        <span class="text-xs text-ink-400">PDF, JPG or PNG &middot; Max 10MB each</span>
-                        <input type="file" name="legal_documents[]" multiple class="hidden">
-                    </label>
+
+                    <div x-data="multiFileUpload({ isImage: false, maxSizeMB: 10 })">
+                        <label class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-ink-200 rounded-xl p-8 cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-all duration-300 text-center">
+                            <x-icon name="arrow-up-tray" class="w-8 h-8 text-ink-400" />
+                            <span class="text-sm font-semibold text-ink-700" x-text="items.length ? 'Add more documents' : 'Upload ownership documents, title deeds, or CNIC copies'"></span>
+                            <span class="text-xs text-ink-400">PDF, JPG or PNG &middot; Max 10MB each</span>
+                            <input type="file" name="legal_documents[]" multiple accept="application/pdf,image/jpeg,image/png" class="hidden" x-ref="input" @change="handleSelect($event.target.files)">
+                        </label>
+
+                        <p x-show="error" x-cloak x-text="error" class="mt-2 text-xs text-brand-600"></p>
+
+                        <div x-show="items.length" x-cloak class="mt-4">
+                            <div class="text-xs font-semibold text-ink-600 mb-2" x-text="`${items.length} file${items.length === 1 ? '' : 's'} selected`"></div>
+                            <div class="space-y-2">
+                                <template x-for="item in items" :key="item.id">
+                                    <div class="flex items-center gap-3 rounded-lg border border-ink-200 p-3">
+                                        <span class="w-10 h-10 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center text-[10px] font-bold shrink-0" x-text="extension(item.file.name)"></span>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="text-sm font-medium text-ink-800 truncate" x-text="item.file.name"></div>
+                                            <div class="text-xs text-ink-400" x-text="formatSize(item.file.size)"></div>
+                                        </div>
+                                        <button type="button" @click="removeItem(item.id)" class="text-ink-400 hover:text-brand-600 shrink-0">
+                                            <x-icon name="x-mark" class="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mt-8 flex justify-between">
                         <button type="button" @click="prev()" class="btn-outline">Back</button>
                         <button type="button" @click="next()" class="btn-primary">Continue <x-icon name="arrow-right" class="w-4 h-4" /></button>
@@ -232,12 +256,33 @@
                         <span class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold text-sm">5</span>
                         <h2 class="font-heading font-bold text-lg text-ink-900">Property Images</h2>
                     </div>
-                    <label class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-ink-200 rounded-xl p-8 cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-all duration-300 text-center">
-                        <x-icon name="camera" class="w-8 h-8 text-ink-400" />
-                        <span class="text-sm font-semibold text-ink-700">Upload property photos</span>
-                        <span class="text-xs text-ink-400">JPG or PNG &middot; Max 5MB each &middot; First photo becomes the cover image</span>
-                        <input type="file" name="images[]" multiple accept="image/*" class="hidden">
-                    </label>
+
+                    <div x-data="multiFileUpload({ isImage: true, maxSizeMB: 5 })">
+                        <label class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-ink-200 rounded-xl p-8 cursor-pointer hover:border-brand-400 hover:bg-brand-50/30 transition-all duration-300 text-center">
+                            <x-icon name="camera" class="w-8 h-8 text-ink-400" />
+                            <span class="text-sm font-semibold text-ink-700" x-text="items.length ? 'Add more photos' : 'Upload property photos'"></span>
+                            <span class="text-xs text-ink-400">JPG or PNG &middot; Max 5MB each &middot; First photo becomes the cover image</span>
+                            <input type="file" name="images[]" multiple accept="image/*" class="hidden" x-ref="input" @change="handleSelect($event.target.files)">
+                        </label>
+
+                        <p x-show="error" x-cloak x-text="error" class="mt-2 text-xs text-brand-600"></p>
+
+                        <div x-show="items.length" x-cloak class="mt-4">
+                            <div class="text-xs font-semibold text-ink-600 mb-2" x-text="`${items.length} photo${items.length === 1 ? '' : 's'} selected — first is the cover image`"></div>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                                <template x-for="(item, index) in items" :key="item.id">
+                                    <div class="relative group rounded-lg overflow-hidden aspect-square border border-ink-200">
+                                        <img :src="item.url" class="w-full h-full object-cover">
+                                        <span x-show="index === 0" class="absolute bottom-1 left-1 badge bg-brand-600 text-white text-[10px]">Cover</span>
+                                        <button type="button" @click="removeItem(item.id)" class="absolute top-1 right-1 w-6 h-6 rounded-full bg-ink-950/70 hover:bg-brand-600 text-white flex items-center justify-center transition">
+                                            <x-icon name="x-mark" class="w-3.5 h-3.5" />
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mt-8 flex justify-between">
                         <button type="button" @click="prev()" class="btn-outline">Back</button>
                         <button type="button" @click="next()" class="btn-primary">Continue <x-icon name="arrow-right" class="w-4 h-4" /></button>

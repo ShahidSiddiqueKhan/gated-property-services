@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gatedpropertyservices.com',
             'password' => bcrypt('password'),
             'role' => 'admin',
-            'phone' => '+92 300 9558737',
+            'phone' => '+92 321 5381128',
         ]);
 
         $client = User::factory()->create([
@@ -182,7 +182,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'HBL Bank Transfer', 'code' => 'hbl_bank', 'type' => 'manual', 'region' => 'local', 'icon' => 'banknotes', 'instructions' => 'Account Title: GATED Property Services. IBAN: PK00 HABB 0000 1122 3344 5566. Include your invoice number as the transfer reference.'],
             ['name' => 'UBL Bank Transfer', 'code' => 'ubl_bank', 'type' => 'manual', 'region' => 'local', 'icon' => 'banknotes', 'instructions' => 'Account Title: GATED Property Services. IBAN: PK00 UNIL 0000 9988 7766 5544. Include your invoice number as the transfer reference.'],
             ['name' => 'Raast QR', 'code' => 'raast_qr', 'type' => 'manual', 'region' => 'local', 'icon' => 'banknotes', 'instructions' => 'Scan the Raast QR code shared by our finance team and enter the invoice amount exactly.'],
-            ['name' => 'Easypaisa', 'code' => 'easypaisa', 'type' => 'manual', 'region' => 'local', 'icon' => 'banknotes', 'instructions' => 'Send to Easypaisa account 0300-9558737 (GATED Property Services) and share the transaction ID with our finance team.'],
+            ['name' => 'Easypaisa', 'code' => 'easypaisa', 'type' => 'manual', 'region' => 'local', 'icon' => 'banknotes', 'instructions' => 'Send to Easypaisa account 0321-5381128 (GATED Property Services) and share the transaction ID with our finance team.'],
             ['name' => 'International Bank Transfer', 'code' => 'intl_bank', 'type' => 'manual', 'region' => 'overseas', 'icon' => 'globe-alt', 'instructions' => 'SWIFT/IBAN details are sent by our finance team on request — please contact support before sending an international wire.'],
             ['name' => 'Wise', 'code' => 'wise', 'type' => 'manual', 'region' => 'overseas', 'icon' => 'globe-alt', 'instructions' => 'Send via Wise to gated-payments@wise.com, using your invoice number as the reference.'],
             ['name' => 'Payoneer', 'code' => 'payoneer', 'type' => 'manual', 'region' => 'overseas', 'icon' => 'globe-alt', 'instructions' => 'Send via Payoneer to the account details shared by our finance team, using your invoice number as the reference.'],
